@@ -1,0 +1,26 @@
+- name: Install base packages
+  dnf:
+    name:
+      - nano
+      - git
+      - curl
+      - wget
+      - firewalld
+      - policycoreutils-python-utils
+    state: present
+
+- name: Start and enable firewalld
+  systemd:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Allow SSH through firewall
+  ansible.posix.firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+
+- name: Set timezone
+  community.general.timezone:
+    name: America/Indianapolis
