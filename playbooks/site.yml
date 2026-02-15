@@ -3,3 +3,46 @@
   become: yes
   roles:
     - common
+- name: Deploy container stack on APP01
+  hosts: srv-app01
+  become: yes
+  roles:
+    - podman-stack
+
+- name: Deploy static site on APP02
+  hosts: srv-app02
+  become: yes
+  tasks:
+    - name: Install httpd
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Create Custom index page
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head><title>SRV-APP02</title></head>
+          <body>
+              <h1>SRV-APP02 - Static Web Server</h1>
+              <p>This host demonstrates Ansible fleet management</p>
+              <p>Running Apache httpd on Rocky Linux 9</p>
+          </body>
+          </html> 
+        dest: /var/www/html/index.html
+        mode: '0644'
+
+    - name: Start and enable httpd
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Allow HTTP through firewall
+      ansible.posix.firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+        immediate: yes
+        
