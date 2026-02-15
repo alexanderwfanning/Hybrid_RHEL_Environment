@@ -1,0 +1,31 @@
+version: '3'
+services:
+  nginx:
+    container_name: nginx-proxy
+    image: docker.io/library/nginx:alpine
+    ports:
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./html:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+  apache:
+    container_name: apache-web
+    image: docker.io/library/httpd:alpine
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres-db
+    image: docker.io/library/postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: changem123
+      POSTGRES_DB: webapp
+      POSTGRES_USER: appuser
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

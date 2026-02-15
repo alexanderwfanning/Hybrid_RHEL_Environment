@@ -1,0 +1,85 @@
+- name: Install EPEL repository
+  dnf:
+    name: epel-release
+    state: present
+
+- name: Install Podman and dependencies
+  dnf:
+    name:
+      - podman
+      - podman-compose
+      - python3-pip
+    state: present
+
+- name: Enable podman socket for rootless
+  systemd:
+    name: podman.socket
+    enabled: yes
+    scope: user
+  become_user: ansible
+
+- name: Allow HTTP through firewall
+  ansible.posix.firewalld:
+    port: 8080/tcp
+    permanent: yes
+    state: enabled
+  notify: reload firewalld
+
+- name: Allow HTTPS through firewall
+  ansible.posix.firewalld:
+    port: 8443/tcp
+    permanent: yes
+    state: enabled
+  notify: reload firewalld
+
+- name: Create application directory
+  file:
+    path: /opt/webapp
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: '0755'
+
+- name: Create HTML directory
+  file:
+    path: /opt/webapp/html
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: '0755'
+
+- name: Create docker-compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/webapp/docker-compose.yml
+    owner: ansible
+    group: ansible
+    mode: '0644'
+
+- name: Copy nginx config
+  copy:
+    src: nginx.conf
+    dest: /opt/webapp/nginx.conf
+    owner: ansible
+    group: ansible
+    mode: '0644'
+
+- name: Copy index.html
+  copy:
+    src: index.html
+    dest: /opt/webapp/html/index.html
+    owner: ansible
+    group: ansible
+    mode: '0644'
+
+- name: Start Containers with podman-compose
+  ansible.builtin.shell:
+    cmd: |
+      cd /opt/webapp
+      podman-compose down
+      podman-compose up -d
+  become_user: ansible
+  args:
+    chdir: /opt/webapp
+
+
