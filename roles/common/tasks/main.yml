@@ -24,3 +24,18 @@
 - name: Set timezone
   community.general.timezone:
     name: America/Indianapolis
+
+- name: Deploy health check script
+  copy:
+    src: health-check.sh
+    dest: /usr/local/bin/health-check.sh
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Create health check cron job
+  cron:
+    name: "Health Check"
+    minute: "*/5"
+    job: "/usr/local/bin/health-check.sh"
+    user: root
