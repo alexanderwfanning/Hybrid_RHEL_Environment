@@ -35,7 +35,7 @@ A professional-grade hybrid lab environment integrating Windows Server Active Di
 
 ### Security & Storage
 * **Security:** SELinux (Enforcing), Firewalld, and SSH key-based authentication.
-* **Traffic:** External SSL/TLS termination via Cloudflare Tunnels. (In-Progress)
+* **Traffic:** External SSL/TLS termination via Cloudflare Tunnels.
 * **Storage:** SMB/Samba file sharing integrated with AD authentication.
 
 ---
@@ -58,6 +58,12 @@ A professional-grade hybrid lab environment integrating Windows Server Active Di
 * [x] Documented Git history with 10+ commits.
 
 ---
+<img width="501" height="177" alt="image" src="https://github.com/user-attachments/assets/cf135a29-d22e-41af-9323-e477c69e6a85" />
+<img width="581" height="363" alt="image" src="https://github.com/user-attachments/assets/edb5a699-8c11-44b7-a4a7-6b4b8fa4f12b" />
+<img width="623" height="301" alt="image" src="https://github.com/user-attachments/assets/5d0edbe7-4a12-4590-92df-617de139a203" />
+<img width="630" height="155" alt="image" src="https://github.com/user-attachments/assets/7979b01a-5afa-4013-bac1-3339a6b63d53" />
+
+
 
 ## Deployment
 
