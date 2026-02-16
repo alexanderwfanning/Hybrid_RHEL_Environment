@@ -16,7 +16,7 @@ A professional-grade hybrid lab environment integrating Windows Server Active Di
 | Hostname | IP | Role | Services |
 | :--- | :--- | :--- | :--- |
 | **DC-01** | 10.0.10.10 | Domain Controller | AD DS, DNS, DHCP |
-| **SRV-MGMT** | 10.0.10.20 | Control Node | Ansible, Samba, Git |
+| **SRV-MGMT** | 10.0.10.4 | Control Node | Ansible, Samba, Git |
 | **SRV-APP01** | 10.0.10.30 | App Server | Podman (Nginx, Apache, Postgres) |
 | **SRV-APP02** | 10.0.10.31 | Web Server | Apache httpd |
 
