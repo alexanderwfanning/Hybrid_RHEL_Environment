@@ -74,4 +74,4 @@ To rebuild this environment:
 3. **Management:** Install Ansible on SRV-MGMT and configure SSH keys for all nodes.
 4. **Orchestration:** Run the site-wide playbook:
    ```bash
-   ansible-playbook -i inventory/production/hosts.yml site.yml
+   ansible-playbook -i inventory/production/hosts.yml playbooks/site.yml
